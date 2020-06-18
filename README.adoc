@@ -1,0 +1,59 @@
+merge.sh
+========
+Marco Herrn <marco@mherrn.de>
+2020-06-16
+:notoc:
+:homepage: https://github.com/hupfdule/merge.sh
+:license-link: https://github.com/hupfdule/merge.sh/blob/master/LICENSE.txt
+:source-highlighter: prettify
+:version: 0.1.0
+:experimental:
+
+A POSIX shell script to compare two directories recursively.
+
+It is quite rudimentary at the moment.
+
+
+Synopsis
+--------
+
+[source, sh]
+----
+ merge.sh <source> <target>
+----
+
+
+Description
+-----------
+
+List all files that
+ - only exist in `<source>`, but not in `<target>`
+ - are exactly the same in `<source>` and `<target>`
+ - exist in both `<source>` and `<target>`, but are different in both hierarchies
+Be aware that files, that exist in `<target>`, but not in `<source>` are
+_not_ listed!
+
+The results are written to three files: `missingfile`, `duplicatefile` and
+`differentfile`, respectively.
+
+At the moment this utility does not support deletion, moving and renaming of files,
+but all it does is writing its information into the above mentioned files.
+
+This tool always works recursively.
+It only processes regular files. Directories and empty files are ignored.
+It uses the external tools 'find', 'sed' and 'md5sum' for doing its work.
+Its implementation is not efficient. Therefore it is likely much slower than
+other tools like rdfind, fdupes or jdupes.
+
+The information gathered by this tool can be used to
+ - Delete files from 'source' that exist in 'target'
+ - Move files from 'source' that are fully missing in 'target'
+ - Move files from 'source' to 'target' that exist, but differ
+   in both. This needs a rename of the moved file.
+
+
+License
+-------
+
+This project is licensed under the terms of the link:{license-link}[MIT
+License].
