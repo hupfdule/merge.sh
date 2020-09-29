@@ -92,15 +92,17 @@ debug() {
   fi
 }
 
+# TODO Check parameters and print usage if incorrect
+
 source=$1
 target=$2
 
 cwd=$(pwd)
 cd "$source"
-source_abs=$(replace $(pwd) "/*$" "")
+source_abs=$(replace "$(pwd)" "/*$" "")
 cd "$cwd"
 cd "$target"
-target_abs=$(replace $(pwd) "/*$" "")
+target_abs=$(replace "$(pwd)" "/*$" "")
 
 echo "Comparing ${source_abs} with ${target_abs}"
 
